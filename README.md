@@ -64,6 +64,8 @@ Here is an example of how it loops for each stock:
         mem_cleaner()
         time.sleep(refresh_rate)
 ```
+That's it!
+All you need is in the functions folder, add to NEUfunctios.py and control the execution in execution.py.
 
 Please make sure to update tests as appropriate and share with the world in this repository.
 
