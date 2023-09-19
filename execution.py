@@ -6,7 +6,6 @@
 #if device is online, it will pull values from the internet
 if loop == 0 or loop % cycleTimes == 0:
     loop = 0
-
     # display preloaded GIFs animation
     if Show_Animations.lower() == "true":
         for folder in animation_folders:
@@ -17,7 +16,7 @@ if loop == 0 or loop % cycleTimes == 0:
         # print(symbol)
         if (symbol != ""):
             try:
-                getsymbolsdata(symbol, stocks.index(symbol) + 1, "stocks")
+                getsymbolsdata(symbol, stocks.index(symbol) + 1, "stocks", FinnHub_APIkey)
                 mem_cleaner()
                 time.sleep(refresh_rate)
 
@@ -32,20 +31,14 @@ if loop == 0 or loop % cycleTimes == 0:
         if (symbol != ""):
             try:
                 if (crypto_API_TO_USE == "Finnhub"):
-                    getsymbolsdata(symbol, cryptos.index(symbol) + 1, "cryptos")
+                    getsymbolsdata(symbol, cryptos.index(symbol) + 1, "cryptos", FinnHub_APIkey)
                 else:
-                    getfromcoinmarketcap(symbol, cryptos.index(symbol) + 1)
+                    getfromcoinmarketcap(symbol, cryptos.index(symbol) + 1, CoinMarketcap_APIkey)
                 mem_cleaner()
                 time.sleep(refresh_rate)
 
             except (ValueError, RuntimeError) as e:
                 print("Some error occured, retrying! -", e)
-
-    matrixportal.set_text("", 0)
-    matrixportal.set_text("", 1)
-
-    if show_eth_gas_price.lower() == "true":
-        getETHgas(gas_price_type)
 
     matrixportal.set_text("", 0)
     matrixportal.set_text("", 1)

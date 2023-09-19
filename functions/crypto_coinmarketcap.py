@@ -1,12 +1,13 @@
 
-def getfromcoinmarketcap(symbol, profileid):
+def getfromcoinmarketcap(symbol, profileid, APIKEY):
     matrixportal.set_text("", 2)
     print("Coinmarketcap start")
-    APIKEY = secrets["COINMARKETCAP_API_key"]
+    #APIKEY = secrets["COINMARKETCAP_API_key"]
     symbolUpper = symbol.upper()
     DATA_SOURCE = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=" + symbolUpper + "&convert=" + Base_Currency + "&CMC_PRO_API_KEY=" + APIKEY
     DATA_LOCATION = ["data", symbolUpper, "quote", Base_Currency, "price"]
-    print(symbol)
+    DATA_PercentChange = ["data", symbolUpper, "quote", Base_Currency, "percent_change_24h"]
+
 
     try:
         symbols_data = matrixportal.network.fetch(DATA_SOURCE)
@@ -17,6 +18,15 @@ def getfromcoinmarketcap(symbol, profileid):
 
     try:
         symbol_price = matrixportal.network.json_traverse(symbols_data.json(), DATA_LOCATION)
+        percent_change = matrixportal.network.json_traverse(symbols_data.json(), DATA_PercentChange)
+        if (percent_change > 0):
+            Strpercent_change = "    " + str(round(percent_change)) + "%"
+
+        elif (round(percent_change) == 0):
+            Strpercent_change = "    " + str(round(percent_change)) + "%"
+        else:
+            Strpercent_change = "    " + str(round(percent_change)) + "%"
+
         # symbol_price = round(symbol_price, 12)
         symbol_price = str(symbol_price)
         print(symbol_price)
@@ -56,5 +66,10 @@ def getfromcoinmarketcap(symbol, profileid):
     changeBackgroundImage("cryptos", symbol, profileid)
     matrixportal.set_text(symbol_price)
     matrixportal.set_text(symbol, 1)
-    # matrixportal.scroll_text(0.05)
+    time.sleep(5)
+    matrixportal.set_text(Strpercent_change)
+    if (round(percent_change) >= 0):
+        matrixportal.set_background(cwd + "/systemimg/up.bmp")
+    else:
+        matrixportal.set_background(cwd + "/systemimg/down.bmp")
 
