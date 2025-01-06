@@ -2,7 +2,7 @@
 #Please enter your Wifi Name and Password.
 
 #UPDATE THIS SERIALNO with the one on the back of your display
-serialNo = 'NEU123456789'
+serialNo = 'NEU1234567890'
 
 #WIFI name should be exactly as it shows up in your computer/phone
 #DO NOT REMOVE THE SINGLE QUOTES, OR ANY PUNCTUATION MARKS
